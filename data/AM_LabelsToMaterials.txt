@@ -1,4 +1,4 @@
--1 1 Air_outside_body
+0 1 Air_outside_body
 1 3 Adrenals
 3 5 Gallbladder+Pituitary_gland+Trachea+Thymus+Tonsils+Ureters+...
 5 7 Muscle_tissue
