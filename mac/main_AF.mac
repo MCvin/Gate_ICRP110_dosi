@@ -47,7 +47,7 @@
 #=====================================================
 # PHYSICS
 #=====================================================
-# For hadrons see recommendations of http://wiki.opengatecollaboration.org/index.php/Users_Guide_V7.2:Setting_up_the_physics
+# For hadrons see recommendations of http://wiki.opengatecollaboration.org/index.php/Users_Guide:Setting_up_the_physics
 
 /gate/physics/addPhysicsList                                      emlivermore
 
