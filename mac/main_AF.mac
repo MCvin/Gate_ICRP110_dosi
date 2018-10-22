@@ -117,6 +117,7 @@
 #=====================================================
 
 /gate/run/initialize
+/gate/random/setEngineName                                        MersenneTwister
 /gate/random/setEngineSeed                                        auto
 /gate/random/verbose                                              1
 
