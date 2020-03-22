@@ -17,14 +17,14 @@
 #   - data/AF_UINT16_299_137_348.raw                                                 #
 #                                                                                    #
 # Outputs:                                                                           #
-#   - {job}_AF-DoseByRegions.txt                                                     #
-#   - {job}_AF-model-Dose.mhd                                                        #
-#   - {job}_AF-model-Dose.raw                                                        #
-#   - {job}_AF-model-Dose-Squared.mhd                                                #
-#   - {job}_AF-model-Dose-Squared.raw                                                #
-#   - {job}_AF-model-Dose-Uncertainty.mhd                                            #
-#   - {job}_AF-model-Dose-Uncertainty.raw                                            #
-#   - {job}_AF-stats.txt                                                             #
+#   - output/{job}_AF-DoseByRegions.txt                                              #
+#   - output/{job}_AF-model-Dose.mhd                                                 #
+#   - output/{job}_AF-model-Dose.raw                                                 #
+#   - output/{job}_AF-model-Dose-Squared.mhd                                         #
+#   - output/{job}_AF-model-Dose-Squared.raw                                         #
+#   - output/{job}_AF-model-Dose-Uncertainty.mhd                                     #
+#   - output/{job}_AF-model-Dose-Uncertainty.raw                                     #
+#   - output/{job}_AF-stats.txt                                                      #
 #------------------------------------------------------------------------------------#
 
 #=====================================================
@@ -50,6 +50,7 @@
 #=====================================================
 
 /gate/physics/addPhysicsList                                      emlivermore
+/gate/physics/processes/PhotoElectric/setAugerElectron            true
 
 /gate/physics/Gamma/SetCutInRegion                                world 10.0 mm
 /gate/physics/Electron/SetCutInRegion                             world 10.0 mm
@@ -59,7 +60,6 @@
 /gate/physics/Electron/SetCutInRegion                             patient 0.1 mm
 /gate/physics/Positron/SetCutInRegion                             patient 0.1 mm
 
-/gate/physics/processes/PhotoElectric/setAugerElectron            true
 /gate/physics/displayCuts
 
 #=====================================================
