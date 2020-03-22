@@ -114,6 +114,15 @@
 /gate/actor/stat/saveEveryNSeconds                                60
 
 #=====================================================
+# VISUALISATION
+#=====================================================
+
+#/vis/open                                                         OGLI
+#/vis/drawVolume
+#/vis/scene/add/trajectories
+#/vis/scene/endOfEventAction                                       accumulate
+
+#=====================================================
 # INITIALISATION
 #=====================================================
 
