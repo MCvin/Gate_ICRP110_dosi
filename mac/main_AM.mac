@@ -1,30 +1,31 @@
-#-----------------------------------------------------------------------------#
-# GATE macro for nuclear medicine dosimetry with voxel phantoms               #
-#                                                                             #
-# Author: Maxime Chauvin, maxime.chauvin@inserm.fr                            #
-# Last revision: 10-10-2018                                                   #
-#                                                                             #
-# Usage example:                                                              #
-#   Gate -a [Source_ID,95][particle,gamma][energy,1][nb,1e5] mac/main_AM.mac  #
-#                                                                             #
-# Inputs:                                                                     #
-#   - data/ActivityRange*.dat                                                 #
-#   - data/AM_GateMaterials.db                                                #
-#   - data/AM_LabelsToMaterials.txt                                           #
-#   - data/AM_UINT16_254_127_222.mhd                                          #
-#   - data/AM_UINT16_254_127_222.raw                                          #
-#                                                                             #
-# Outputs:                                                                    #
-#   - DoseByRegions.txt                                                       #
-#   - output-Dose.mhd                                                         #
-#   - output-Dose.raw                                                         #
-#   - output-Dose-Squared.mhd                                                 #
-#   - output-Dose-Squared.raw                                                 #
-#   - output-Dose-Uncertainty.mhd                                             #
-#   - output-Dose-Uncertainty.raw                                             #
-#   - stat.log                                                                #
-#                                                                             #
-#-----------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------#
+# GATE macro for nuclear medicine dosimetry with ICRP 110 voxel models               #
+#                                                                                    #
+# Author: Maxime Chauvin, maxime.chauvin@inserm.fr                                   #
+# Last revision: 22-03-2020                                                          #
+#                                                                                    #
+# Usage example, for mono energetic source:                                          #
+#   Gate -a [Source_ID,95][particle,gamma][energy,1][nb,1e5][job,1] mac/main_AM.mac  #
+# Usage example, for 177 Lu source (uncomment in section SOURCE):                    #
+#   Gate -a [Source_ID,95][nb,1e5][job,1] mac/main_AM.mac                            #
+#                                                                                    #
+# Inputs:                                                                            #
+#   - data/activity_ranges/ActivityRange*.dat                                        #
+#   - data/AM_GateMaterials.db                                                       #
+#   - data/AM_LabelsToMaterials.txt                                                  #
+#   - data/AM_UINT16_254_127_222.mhd                                                 #
+#   - data/AM_UINT16_254_127_222.raw                                                 #
+#                                                                                    #
+# Outputs:                                                                           #
+#   - {job}_AM-DoseByRegions.txt                                                     #
+#   - {job}_AM-model-Dose.mhd                                                        #
+#   - {job}_AM-model-Dose.raw                                                        #
+#   - {job}_AM-model-Dose-Squared.mhd                                                #
+#   - {job}_AM-model-Dose-Squared.raw                                                #
+#   - {job}_AM-model-Dose-Uncertainty.mhd                                            #
+#   - {job}_AM-model-Dose-Uncertainty.raw                                            #
+#   - {job}_AM-stats.txt                                                             #
+#------------------------------------------------------------------------------------#
 
 #=====================================================
 # GEOMETRY
@@ -47,7 +48,6 @@
 #=====================================================
 # PHYSICS
 #=====================================================
-# For hadrons see recommendations of http://wiki.opengatecollaboration.org/index.php/Users_Guide:Setting_up_the_physics
 
 /gate/physics/addPhysicsList                                      emlivermore
 
@@ -73,9 +73,9 @@
 /gate/actor/dose3D/enableDose                                     true
 /gate/actor/dose3D/enableSquaredDose                              true
 /gate/actor/dose3D/enableUncertaintyDose                          true
-/gate/actor/dose3D/save                                           output/output.mhd
+/gate/actor/dose3D/save                                           output/{job}_AM-model.mhd
 /gate/actor/dose3D/inputDoseByRegions                             data/AM_UINT16_254_127_222.mhd 
-/gate/actor/dose3D/outputDoseByRegions                            output/DoseByRegions.txt
+/gate/actor/dose3D/outputDoseByRegions                            output/{job}_AM-DoseByRegions.txt
 /gate/actor/dose3D/addRegion                                      142: 1, 2
 /gate/actor/dose3D/addRegion                                      143: 3, 4
 /gate/actor/dose3D/addRegion                                      144: 5, 6
@@ -110,7 +110,8 @@
 #/gate/actor/dose3D/addRegion                                      172: 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,76,78,80,82,84,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,139
 
 /gate/actor/addActor                                              SimulationStatisticActor stat
-/gate/actor/stat/save                                             output/stat.log
+/gate/actor/stat/save                                             output/{job}_AM-stats.txt
+/gate/actor/stat/saveEveryNSeconds                                60
 
 #=====================================================
 # INITIALISATION
@@ -125,11 +126,14 @@
 # SOURCE
 #=====================================================
 
-# Source from voxel model
+# 177 Lu source from spectra
+#/control/execute                                                  mac/source177Lu_AM.mac
+
+# Mono energetic source
 /gate/source/addSource                                            ActivityImage voxel
 /gate/source/ActivityImage/reader/insert                          image
 /gate/source/ActivityImage/imageReader/translator/insert          range
-/gate/source/ActivityImage/imageReader/rangeTranslator/readTable  data/ActivityRange{Source_ID}.dat
+/gate/source/ActivityImage/imageReader/rangeTranslator/readTable  data/activity_ranges/ActivityRange{Source_ID}.dat
 /gate/source/ActivityImage/imageReader/rangeTranslator/describe   1
 /gate/source/ActivityImage/imageReader/readFile                   data/AM_UINT16_254_127_222.mhd
 /gate/source/ActivityImage/setPosition                            -271.399 -135.6995 -888.0 mm

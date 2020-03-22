@@ -1,7 +1,7 @@
-# Gate_voxPhantomDosi
+# Gate_ICRP110_dosi
 
 ```
-GATE macro for nuclear medicine dosimetry with voxel phantoms
+GATE macro for nuclear medicine dosimetry with the ICRP 110 model
 
 Author: Maxime Chauvin, maxime.chauvin@inserm.fr
  Last revision: 10-10-2018

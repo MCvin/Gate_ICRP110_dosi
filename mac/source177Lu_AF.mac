@@ -1,0 +1,84 @@
+# 177Lu
+# taken from (MIRD radionuclide data and decay schemes, 2nd edition, KF Eckerman & A Endo Eds, The Society of Nuclear Medicine, Reston, VA, SNM, 2008.)
+# distribution is automatically normalized to 1. Number of particles per nt must be adjusted post-treatment.
+
+##=====================================================
+## Bminus source
+##=====================================================
+#/gate/source/addSource                                     Bminus  voxel
+#/gate/source/Bminus/reader/insert                          image                                                                                   
+#/gate/source/Bminus/imageReader/translator/insert          range
+#/gate/source/Bminus/imageReader/rangeTranslator/readTable  data/activity_ranges/ActivityRange{Organ_ID}.dat
+#/gate/source/Bminus/imageReader/rangeTranslator/describe   1
+#/gate/source/Bminus/imageReader/readFile                   data/AF_UINT16_299_137_348.mhd
+#/gate/source/Bminus/setPosition                            -265.3625 -121.5875 -842.16 mm
+#/gate/source/Bminus/gps/particle                           e-
+#/gate/source/Bminus/gps/angtype                            iso
+#/gate/source/Bminus/gps/energytype                         UserSpectrum
+#/gate/source/Bminus/gps/setSpectrumFile                    data/177Lu/Lu-177_Bminus.txt
+#/gate/source/Bminus/setIntensity                           1.000E+00
+#=====================================================
+# Gamma source
+#=====================================================
+/gate/source/addSource                                     G  voxel
+/gate/source/G/reader/insert                               image                                                                                   
+/gate/source/G/imageReader/translator/insert               range
+/gate/source/G/imageReader/rangeTranslator/readTable       data/activity_ranges/ActivityRange{Organ_ID}.dat
+/gate/source/G/imageReader/rangeTranslator/describe        1
+/gate/source/G/imageReader/readFile                        data/AF_UINT16_299_137_348.mhd
+/gate/source/G/setPosition                                 -265.3625 -121.5875 -842.16 mm
+/gate/source/G/gps/particle                                gamma
+/gate/source/G/gps/angtype                                 iso
+/gate/source/G/gps/energytype                              UserSpectrum
+/gate/source/G/gps/setSpectrumFile                         data/177Lu/Lu-177_G.txt
+/gate/source/G/setIntensity                                1.803E-01
+##=====================================================
+## X source
+##=====================================================
+#/gate/source/addSource                                     X  voxel
+#/gate/source/X/reader/insert                               image                                                                                   
+#/gate/source/X/imageReader/translator/insert               range
+#/gate/source/X/imageReader/rangeTranslator/readTable       data/activity_ranges/ActivityRange{Organ_ID}.dat
+#/gate/source/X/imageReader/rangeTranslator/describe        1
+#/gate/source/X/imageReader/readFile                        data/AF_UINT16_299_137_348.mhd
+#/gate/source/X/setPosition                                 -265.3625 -121.5875 -842.16 mm
+#/gate/source/X/gps/particle                                gamma
+#/gate/source/X/gps/angtype                                 iso
+#/gate/source/X/gps/energytype                              UserSpectrum
+#/gate/source/X/gps/setSpectrumFile                         data/177Lu/Lu-177_X.txt
+#/gate/source/X/setIntensity                                1.374E+00
+##=====================================================
+## IE source
+##=====================================================
+#/gate/source/addSource                                     IE  voxel
+#/gate/source/IE/reader/insert                              image                                                                                   
+#/gate/source/IE/imageReader/translator/insert              range
+#/gate/source/IE/imageReader/rangeTranslator/readTable      data/activity_ranges/ActivityRange{Organ_ID}.dat
+#/gate/source/IE/imageReader/rangeTranslator/describe       1
+#/gate/source/IE/imageReader/readFile                       data/AF_UINT16_299_137_348.mhd
+#/gate/source/IE/setPosition                                -265.3625 -121.5875 -842.16 mm
+#/gate/source/IE/gps/particle                               e-
+#/gate/source/IE/gps/angtype                                iso
+#/gate/source/IE/gps/energytype                             UserSpectrum
+#/gate/source/IE/gps/setSpectrumFile                        data/177Lu/Lu-177_IE.txt
+#/gate/source/IE/setIntensity                               1.548E-01
+##=====================================================
+## AE source
+##=====================================================
+#/gate/source/addSource                                     AE  voxel
+#/gate/source/AE/reader/insert                              image                                                                                   
+#/gate/source/AE/imageReader/translator/insert              range
+#/gate/source/AE/imageReader/rangeTranslator/readTable      data/activity_ranges/ActivityRange{Organ_ID}.dat
+#/gate/source/AE/imageReader/rangeTranslator/describe       1
+#/gate/source/AE/imageReader/readFile                       data/AF_UINT16_299_137_348.mhd
+#/gate/source/AE/setPosition                                -265.3625 -121.5875 -842.16 mm
+#/gate/source/AE/gps/particle                               e-
+#/gate/source/AE/gps/angtype                                iso
+#/gate/source/AE/gps/energytype                             UserSpectrum
+#/gate/source/AE/gps/setSpectrumFile                        data/177Lu/Lu-177_AE.txt
+#/gate/source/AE/setIntensity                               1.117E+00
+
+#=====================================================
+# List
+#=====================================================
+/gate/source/list
